@@ -1,0 +1,5 @@
+export default {
+  NODE_TYPE_QUEST: 0,
+  NODE_TYPE_MISSION: 1,
+  NODE_TYPE_TASKPOINT: 2,
+};

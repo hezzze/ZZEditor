@@ -1,0 +1,4 @@
+const LOAD_FILE = 'LOAD_FILE';
+const UPDATE_QUEST = 'UPDATE_QUEST';
+
+export default { LOAD_FILE, UPDATE_QUEST };
