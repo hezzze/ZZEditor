@@ -2,13 +2,13 @@
 
 import React from 'react';
 
-import type { Quest, Mission, TaskPoint } from '../../common/QuestModel';
+import type { Quest, Mission, Task } from '../../common/QuestModel';
 
 export interface AppState {
   questData: Quest[];
   curQuest?: Quest;
   curMission?: Mission;
-  curTaskPoint?: TaskPoint;
+  curTaskPoint?: Task;
 }
 
 export interface Action {

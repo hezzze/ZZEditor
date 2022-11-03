@@ -8,20 +8,22 @@ import {
 import { Layout, message } from 'antd';
 import { Reducer, useEffect, useReducer } from 'react';
 import IPC from 'common/IPC';
-import { Quest } from 'common/QuestModel';
+import { Header } from 'antd/lib/layout/layout';
+import { Quest, Task } from 'common/QuestModel';
 
 import 'antd/dist/antd.dark.css';
 
 import QuestList from './components/QuestList';
 import QuestPage from './components/QuestPage';
 import MissionPage from './components/MissionPage';
-import TaskPointPage from './components/TaskPointPage';
+import TaskPage from './components/TaskPage';
 
 import './App.css';
 
 import MainContext from './shared/MainContext';
 import type { AppState, Action } from './shared/MainContext';
 import actionTypes from './shared/actionTypes';
+import ControlPanel from './components/ControlPanel';
 
 const err = message.error;
 
@@ -37,6 +39,39 @@ const reducer: Reducer<AppState, Action> = (
       const newData = state.questData.filter((q) => q.key !== newQuest.key);
       return { ...state, questData: [...newData, newQuest] };
     }
+    case actionTypes.UPDATE_MISSON: {
+      const newMission = action.value;
+      const data = state.questData;
+
+      for (let qi = 0; qi < data.length; qi += 1) {
+        const quest = data[qi];
+        for (let mi = 0; mi < quest.children.length; mi += 1) {
+          if (quest.children[mi].key === newMission.key) {
+            quest.children[mi] = newMission;
+          }
+        }
+      }
+
+      return { ...state };
+    }
+    case actionTypes.UPDATE_TASKPOINT: {
+      const newTask: Task = action.value;
+      const data = state.questData;
+
+      for (let qi = 0; qi < data.length; qi += 1) {
+        const quest = data[qi];
+        for (let mi = 0; mi < quest.children.length; mi += 1) {
+          const mission = quest.children[mi];
+          for (let ti = 0; ti < mission.children.length; ti += 1) {
+            if (mission.children[ti].key === newTask.key) {
+              mission.children[ti] = newTask;
+            }
+          }
+        }
+      }
+
+      return { ...state };
+    }
     default:
       throw new Error();
   }
@@ -51,6 +86,7 @@ function loadQuestData(jsonData) {
       m.nodeType = 1;
       m.children.forEach((t) => {
         t.nodeType = 2;
+        if (!t.pointKey) t.pointKey = 0;
       });
     });
   });
@@ -109,12 +145,17 @@ const Main = () => {
   return (
     <MainContext.Provider value={{ state, dispatch }}>
       <Layout>
-        <Sider>
-          <QuestList />
-        </Sider>
-        <Content>
-          <Outlet />
-        </Content>
+        <Header>
+          <ControlPanel />
+        </Header>
+        <Layout>
+          <Sider>
+            <QuestList />
+          </Sider>
+          <Content>
+            <Outlet />
+          </Content>
+        </Layout>
       </Layout>
     </MainContext.Provider>
   );
@@ -138,9 +179,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Main />}>
           <Route index element={<Hello />} />
-          <Route path="/quest/:qid" element={<QuestPage />} />
-          <Route path="/mission/:mid" element={<MissionPage />} />
-          <Route path="/taskpoint/:tid" element={<TaskPointPage />} />
+          <Route path="/quest/:id" element={<QuestPage />} />
+          <Route path="/mission/:id" element={<MissionPage />} />
+          <Route path="/taskpoint/:id" element={<TaskPage />} />
         </Route>
       </Routes>
     </Router>

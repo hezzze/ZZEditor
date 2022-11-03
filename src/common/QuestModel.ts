@@ -14,7 +14,7 @@ export interface Quest extends DataNode {
 export interface Mission {
   title: string;
   key: string;
-  children: TaskPoint[];
+  children: Task[];
   description: string;
   region: string;
 
@@ -22,10 +22,11 @@ export interface Mission {
   nodeType?: number;
 }
 
-export interface TaskPoint {
+export interface Task {
   key: string;
   title: string;
-  location: string;
+  pointKey: number;
+  description: string;
 
   // for internal tracking
   nodeType?: number;

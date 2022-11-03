@@ -9,7 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import * as fs from 'fs';
@@ -38,6 +38,10 @@ ipcMain.on(IPC.CHANNEL_NAME, async (event, arg) => {
     case IPC.SAVE:
       console.log(arg);
       fs.writeFileSync(arg.data.filePath, JSON.stringify(arg.data.obj));
+      await dialog.showMessageBox({
+        message: `文件已保存至 ${arg.data.filePath}`,
+        type: 'info',
+      });
       break;
     default:
       throw new Error('illegal IPC message type');

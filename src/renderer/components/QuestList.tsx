@@ -1,7 +1,7 @@
 import { DownOutlined } from '@ant-design/icons';
 import { Tree } from 'antd';
 import type { TreeProps } from 'antd/es/tree';
-import { Mission, Quest, TaskPoint } from 'common/QuestModel';
+import { Mission, Quest, Task } from 'common/QuestModel';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import constants from 'renderer/shared/constants';
@@ -14,16 +14,16 @@ const QuestList = () => {
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     console.log('selected', selectedKeys, info);
 
-    switch ((info.node as unknown as Quest | Mission | TaskPoint).nodeType) {
-      case constants.NODE_TYPE_QUEST:
+    switch ((info.node as unknown as Quest | Mission | Task).nodeType) {
+      case constants.NODE_TYPE.QUEST:
         console.log('Quest!');
         navigate(`/quest/${info.node.key}`);
         break;
-      case constants.NODE_TYPE_MISSION:
+      case constants.NODE_TYPE.MISSION:
         console.log('MISSION!');
         navigate(`/mission/${info.node.key}`);
         break;
-      case constants.NODE_TYPE_TASKPOINT:
+      case constants.NODE_TYPE.TASKPOINT:
         console.log('TP!');
         navigate(`/taskpoint/${info.node.key}`);
         break;
