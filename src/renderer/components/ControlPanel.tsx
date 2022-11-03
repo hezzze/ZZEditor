@@ -24,11 +24,6 @@ const ControlPanel = () => {
         <PlusOutlined />
         添加任务线
       </Button>
-      <Popconfirm title="确认删除吗" okText="确认" cancelText="取消">
-        <Button danger size="small">
-          删除
-        </Button>
-      </Popconfirm>
       <Drawer
         title="编辑 1 基本信息"
         placement="bottom"

@@ -32,13 +32,18 @@ const reducer: Reducer<AppState, Action> = (
   action: Action
 ) => {
   switch (action.type) {
+    // LOAD_FILE
     case actionTypes.LOAD_FILE:
       return { ...state, questData: action.value };
+
+    // UPDATE_QUEST
     case actionTypes.UPDATE_QUEST: {
       const newQuest = action.value;
       const newData = state.questData.filter((q) => q.key !== newQuest.key);
       return { ...state, questData: [...newData, newQuest] };
     }
+
+    // UPDATE_MISSON
     case actionTypes.UPDATE_MISSON: {
       const newMission = action.value;
       const data = state.questData;
@@ -54,6 +59,8 @@ const reducer: Reducer<AppState, Action> = (
 
       return { ...state };
     }
+
+    // UPDATE_TASKPOINT
     case actionTypes.UPDATE_TASKPOINT: {
       const newTask: Task = action.value;
       const data = state.questData;
@@ -71,6 +78,63 @@ const reducer: Reducer<AppState, Action> = (
       }
 
       return { ...state };
+    }
+
+    // DELETE_QUEST
+    case actionTypes.DELETE_QUEST: {
+      const key = action.value;
+
+      const newData = state.questData.filter((q) => q.key !== key);
+      return { ...state, questData: [...newData] };
+    }
+
+    // DELETE_MISSION
+    case actionTypes.DELETE_MISSION: {
+      const key = action.value;
+
+      const data = state.questData;
+      let deleted = false;
+
+      for (let qi = 0; qi < data.length && !deleted; qi += 1) {
+        const quest = data[qi];
+        for (let mi = 0; mi < quest.children.length && !deleted; mi += 1) {
+          if (quest.children[mi].key === key) {
+            quest.children = [
+              ...quest.children.slice(0, mi),
+              ...quest.children.slice(mi + 1),
+            ];
+            deleted = true;
+          }
+        }
+      }
+
+      return { ...state, questData: [...data] };
+    }
+
+    // DELETE_TASKPOINT
+    case actionTypes.DELETE_TASK: {
+      const key = action.value;
+
+      const data = state.questData;
+      let deleted = false;
+
+      for (let qi = 0; qi < data.length && !deleted; qi += 1) {
+        const quest = data[qi];
+        for (let mi = 0; mi < quest.children.length && !deleted; mi += 1) {
+          const mission = quest.children[mi];
+          for (let ti = 0; ti < mission.children.length && !deleted; ti += 1) {
+            if (mission.children[ti].key === key) {
+              mission.children = [
+                ...mission.children.slice(0, ti),
+                ...mission.children.slice(ti + 1),
+              ];
+              deleted = true;
+            }
+          }
+        }
+      }
+
+      return { ...state, questData: [...data] };
     }
     default:
       throw new Error();

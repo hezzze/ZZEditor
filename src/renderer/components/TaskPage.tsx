@@ -12,8 +12,9 @@ import {
 import { useContext } from 'react';
 import { Task } from 'common/QuestModel';
 import constants from 'renderer/shared/constants';
-import actionTypes from '../shared/actionTypes';
+import { useNavigate } from 'react-router-dom';
 
+import actionTypes from '../shared/actionTypes';
 import ItemPage from '../shared/ItemPage';
 import MainContext from '../shared/MainContext';
 
@@ -62,6 +63,7 @@ const renderContent = (task: Task, column = 2) => {
 
 const TaskPage = () => {
   const { dispatch } = useContext(MainContext);
+  const navigate = useNavigate();
   const [form] = Form.useForm();
 
   const getInitValues = (task: Task) => {
@@ -91,6 +93,14 @@ const TaskPage = () => {
     });
 
     console.log('updating TaskPoint with...', newValues);
+  };
+
+  const onDelete = (task: Task) => {
+    dispatch({
+      type: actionTypes.DELETE_TASK,
+      value: task.key,
+    });
+    navigate('/');
   };
 
   const onRegionChange = (key: string) => {
@@ -176,6 +186,7 @@ const TaskPage = () => {
       renderForm={renderForm}
       onSave={onSave}
       getInitValues={getInitValues}
+      onDelete={onDelete}
     />
   );
 };

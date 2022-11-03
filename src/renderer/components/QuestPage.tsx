@@ -1,5 +1,6 @@
 import { Descriptions, Form, Input, Select, Typography } from 'antd';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Quest } from 'common/QuestModel';
 import constants from 'renderer/shared/constants';
 import actionTypes from '../shared/actionTypes';
@@ -28,6 +29,7 @@ const renderContent = (quest: Quest, column = 2) => (
 
 const QuestPage = () => {
   const { dispatch } = useContext(MainContext);
+  const navigate = useNavigate();
 
   const [form] = Form.useForm();
 
@@ -38,6 +40,14 @@ const QuestPage = () => {
     });
 
     console.log('updating Quest with...', form.getFieldsValue());
+  };
+
+  const onDelete = (quest: Quest) => {
+    dispatch({
+      type: actionTypes.DELETE_QUEST,
+      value: quest.key,
+    });
+    navigate('/');
   };
 
   const renderForm = (quest: Quest) => {
@@ -75,6 +85,7 @@ const QuestPage = () => {
       renderForm={renderForm}
       onSave={onSave}
       getInitValues={(quest) => quest}
+      onDelete={onDelete}
     />
   );
 };

@@ -1,6 +1,7 @@
 import { Descriptions, Form, Input, Select, Typography } from 'antd';
 import { useContext } from 'react';
 import { Mission } from 'common/QuestModel';
+import { useNavigate } from 'react-router-dom';
 import constants from 'renderer/shared/constants';
 import ItemPage from 'renderer/shared/ItemPage';
 import actionTypes from '../shared/actionTypes';
@@ -27,6 +28,7 @@ const renderContent = (mission: Mission) => (
 
 const MissionPage = () => {
   const { dispatch } = useContext(MainContext);
+  const navigate = useNavigate();
 
   const [form] = Form.useForm();
 
@@ -37,6 +39,14 @@ const MissionPage = () => {
     });
 
     console.log('updating Mission with...', form.getFieldsValue());
+  };
+
+  const onDelete = (mission: Mission) => {
+    dispatch({
+      type: actionTypes.DELETE_MISSION,
+      value: mission.key,
+    });
+    navigate('/');
   };
 
   const renderForm = (mission: Mission) => {
@@ -85,6 +95,7 @@ const MissionPage = () => {
       renderForm={renderForm}
       onSave={onSave}
       getInitValues={(mission: Mission) => mission}
+      onDelete={onDelete}
     />
   );
 };

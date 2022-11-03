@@ -6,6 +6,7 @@ import { Quest, Mission, Task } from 'common/QuestModel';
 
 import MainContext from './MainContext';
 import util from './util';
+import actionTypes from './actionTypes';
 
 // reference: https://ant.design/components/page-header-cn/
 
@@ -14,6 +15,7 @@ interface ItemProp {
   renderForm: (item: any) => ReactElement;
   renderContent: (item: any, column?: any) => ReactElement;
   onSave: (item: any) => void;
+  onDelete: (item: any) => void;
 }
 
 const ItemPage: React.FC<ItemProp> = ({
@@ -21,6 +23,7 @@ const ItemPage: React.FC<ItemProp> = ({
   renderForm,
   renderContent,
   onSave,
+  onDelete,
 }: ItemProp) => {
   const params = useParams();
   const { state } = useContext(MainContext);
@@ -45,13 +48,22 @@ const ItemPage: React.FC<ItemProp> = ({
     setOpen(false);
   };
 
+  const confirmDelete = () => {
+    onDelete(item);
+  };
+
   return (
     <PageHeader
       className="site-page-header-responsive"
       title={item.title}
       subTitle="步骤"
       extra={[
-        <Popconfirm title="确认删除吗" okText="确认" cancelText="取消">
+        <Popconfirm
+          title="确认删除吗"
+          okText="确认"
+          cancelText="取消"
+          onConfirm={confirmDelete}
+        >
           <Button danger>删除</Button>
         </Popconfirm>,
         <Button key="1" type="primary" onClick={showDrawer}>
