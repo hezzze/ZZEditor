@@ -9,7 +9,7 @@ import { Layout, message } from 'antd';
 import { Reducer, useEffect, useReducer } from 'react';
 import IPC from 'common/IPC';
 import { Header } from 'antd/lib/layout/layout';
-import { Quest, Task } from 'common/QuestModel';
+import { Quest } from 'common/QuestModel';
 
 import 'antd/dist/antd.dark.css';
 
@@ -20,126 +20,13 @@ import TaskPage from './components/TaskPage';
 
 import './App.css';
 
-import MainContext from './shared/MainContext';
-import type { AppState, Action } from './shared/MainContext';
+import MainContext from './store/MainContext';
+import type { AppState, Action } from './store/MainContext';
 import actionTypes from './shared/actionTypes';
 import ControlPanel from './components/ControlPanel';
+import reducer from './store/reducer';
 
 const err = message.error;
-
-const reducer: Reducer<AppState, Action> = (
-  state: AppState,
-  action: Action
-) => {
-  switch (action.type) {
-    // LOAD_FILE
-    case actionTypes.LOAD_FILE:
-      return { ...state, questData: action.value };
-
-    // UPDATE_QUEST
-    case actionTypes.UPDATE_QUEST: {
-      const newQuest = action.value;
-      const newData = state.questData.filter((q) => q.key !== newQuest.key);
-      return { ...state, questData: [...newData, newQuest] };
-    }
-
-    // UPDATE_MISSON
-    case actionTypes.UPDATE_MISSON: {
-      const newMission = action.value;
-      const data = state.questData;
-
-      for (let qi = 0; qi < data.length; qi += 1) {
-        const quest = data[qi];
-        for (let mi = 0; mi < quest.children.length; mi += 1) {
-          if (quest.children[mi].key === newMission.key) {
-            quest.children[mi] = newMission;
-          }
-        }
-      }
-
-      return { ...state };
-    }
-
-    // UPDATE_TASKPOINT
-    case actionTypes.UPDATE_TASKPOINT: {
-      const newTask: Task = action.value;
-      const data = state.questData;
-
-      for (let qi = 0; qi < data.length; qi += 1) {
-        const quest = data[qi];
-        for (let mi = 0; mi < quest.children.length; mi += 1) {
-          const mission = quest.children[mi];
-          for (let ti = 0; ti < mission.children.length; ti += 1) {
-            if (mission.children[ti].key === newTask.key) {
-              mission.children[ti] = newTask;
-            }
-          }
-        }
-      }
-
-      return { ...state };
-    }
-
-    // DELETE_QUEST
-    case actionTypes.DELETE_QUEST: {
-      const key = action.value;
-
-      const newData = state.questData.filter((q) => q.key !== key);
-      return { ...state, questData: [...newData] };
-    }
-
-    // DELETE_MISSION
-    case actionTypes.DELETE_MISSION: {
-      const key = action.value;
-
-      const data = state.questData;
-      let deleted = false;
-
-      for (let qi = 0; qi < data.length && !deleted; qi += 1) {
-        const quest = data[qi];
-        for (let mi = 0; mi < quest.children.length && !deleted; mi += 1) {
-          if (quest.children[mi].key === key) {
-            quest.children = [
-              ...quest.children.slice(0, mi),
-              ...quest.children.slice(mi + 1),
-            ];
-            deleted = true;
-          }
-        }
-      }
-
-      return { ...state, questData: [...data] };
-    }
-
-    // DELETE_TASKPOINT
-    case actionTypes.DELETE_TASK: {
-      const key = action.value;
-
-      const data = state.questData;
-      let deleted = false;
-
-      for (let qi = 0; qi < data.length && !deleted; qi += 1) {
-        const quest = data[qi];
-        for (let mi = 0; mi < quest.children.length && !deleted; mi += 1) {
-          const mission = quest.children[mi];
-          for (let ti = 0; ti < mission.children.length && !deleted; ti += 1) {
-            if (mission.children[ti].key === key) {
-              mission.children = [
-                ...mission.children.slice(0, ti),
-                ...mission.children.slice(ti + 1),
-              ];
-              deleted = true;
-            }
-          }
-        }
-      }
-
-      return { ...state, questData: [...data] };
-    }
-    default:
-      throw new Error();
-  }
-};
 
 function loadQuestData(jsonData) {
   const data: Quest[] = JSON.parse(jsonData);
@@ -229,9 +116,15 @@ const Hello = () => (
   <MainContext.Consumer>
     {({ state }) => (
       <div className="hello-page">
-        {state.questData.length === 0
-          ? '添加文件 -> 打开 来读取数据文件'
-          : '选择要查看/编辑的对象'}
+        {state.questData.length === 0 ? (
+          <>
+            <div>{'添加文件 -> 打开 来读取数据文件'}</div>
+            <div>或者</div>
+            <div>添加新的任务线</div>
+          </>
+        ) : (
+          '选择要查看/编辑的对象'
+        )}
       </div>
     )}
   </MainContext.Consumer>
@@ -245,7 +138,7 @@ export default function App() {
           <Route index element={<Hello />} />
           <Route path="/quest/:id" element={<QuestPage />} />
           <Route path="/mission/:id" element={<MissionPage />} />
-          <Route path="/taskpoint/:id" element={<TaskPage />} />
+          <Route path="/task/:id" element={<TaskPage />} />
         </Route>
       </Routes>
     </Router>

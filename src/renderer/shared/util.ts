@@ -1,4 +1,19 @@
-import type { Quest } from '../../common/QuestModel';
+import type { Mission, Quest, Task } from '../../common/QuestModel';
+import constants from './constants';
+
+const { POINTS, REGIONS } = constants;
+
+const missionTime = (mission: Mission) => {
+  return mission.children.reduce((acc, t) => {
+    return acc + +POINTS[t.pointKey].min_duration;
+  }, 0);
+};
+
+const questTime = (quest: Quest) => {
+  return quest.children.reduce((acc, m) => {
+    return acc + missionTime(m);
+  }, 0);
+};
 
 export default {
   findNode: (data: Quest[], key: string) => {
@@ -16,4 +31,16 @@ export default {
     }
     return null;
   },
+  getTaskRegion: (task: Task) => {
+    const region = REGIONS.find((r) => {
+      if (POINTS[task.pointKey]) {
+        return r.key === POINTS[task.pointKey].region_key;
+      }
+      return false;
+    });
+
+    return region;
+  },
+  missionTime,
+  questTime,
 };

@@ -4,13 +4,13 @@ import { Button, Drawer, Form, PageHeader, Popconfirm, Space } from 'antd';
 import { ReactElement, useContext, useState } from 'react';
 import { Quest, Mission, Task } from 'common/QuestModel';
 
-import MainContext from './MainContext';
+import MainContext from '../store/MainContext';
 import util from './util';
-import actionTypes from './actionTypes';
 
 // reference: https://ant.design/components/page-header-cn/
 
 interface ItemProp {
+  itemType: string;
   getInitValues: (item: any) => void;
   renderForm: (item: any) => ReactElement;
   renderContent: (item: any, column?: any) => ReactElement;
@@ -24,6 +24,7 @@ const ItemPage: React.FC<ItemProp> = ({
   renderContent,
   onSave,
   onDelete,
+  itemType,
 }: ItemProp) => {
   const params = useParams();
   const { state } = useContext(MainContext);
@@ -56,7 +57,7 @@ const ItemPage: React.FC<ItemProp> = ({
     <PageHeader
       className="site-page-header-responsive"
       title={item.title}
-      subTitle="步骤"
+      subTitle={itemType}
       extra={[
         <Popconfirm
           title="确认删除吗"
@@ -73,7 +74,7 @@ const ItemPage: React.FC<ItemProp> = ({
     >
       {renderContent(item)}
       <Drawer
-        title={`编辑 ${item.title} ${item.key} 基本信息`}
+        title={`编辑 ${item.title} 基本信息`}
         placement="bottom"
         width={500}
         onClose={onClose}

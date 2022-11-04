@@ -121,13 +121,21 @@ export default {
   NODE_TYPE: {
     QUEST: 0,
     MISSION: 1,
-    TASKPOINT: 2,
+    TASK: 2,
   },
   REGIONS,
   QUEST_DIFFICULTY: {
     low: '低',
     medium: '中',
     high: '高',
+  },
+  POINT_TYPES: {
+    t0: 'NPC',
+    t1: 'VR游乐设备',
+    t2: '密室',
+    t3: '拓展设备',
+    t4: '特种设备',
+    t5: '主题场景',
   },
   POINTS,
 };
