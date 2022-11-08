@@ -22,6 +22,11 @@ const TaskForm: React.FC<TaskFormProps> = ({
     form.setFieldValue(['location', 'point'], points[0].key);
   };
 
+  const onPointChange = (key: number) => {
+    const point = POINTS.find((p) => p.key === key);
+    form.setFieldValue('title', point?.short_desc);
+  };
+
   return (
     <Form
       name="basic"
@@ -31,23 +36,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
       initialValues={getInitValues ? getInitValues(task!) : null}
       form={form}
     >
-      <Form.Item
-        label="步骤名称"
-        name="title"
-        rules={[{ required: true, message: '请输入步骤名称' }]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="description"
-        label="步骤描述"
-        rules={[{ required: true, message: '请输入步骤描述' }]}
-      >
-        <TextArea rows={4} />
-      </Form.Item>
-
-      <Form.Item label="编辑步骤地图点">
+      <Form.Item label="编辑步骤任务点">
         <Input.Group compact>
           <Form.Item
             name={['location', 'region']}
@@ -79,7 +68,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
                 noStyle
                 rules={[{ required: true, message: '请选择' }]}
               >
-                <Select placeholder="选择地图点">
+                <Select placeholder="选择任务点" onChange={onPointChange}>
                   {POINTS.filter(
                     (p) =>
                       p.region_key === getFieldValue(['location', 'region'])
@@ -93,6 +82,22 @@ const TaskForm: React.FC<TaskFormProps> = ({
             )}
           </Form.Item>
         </Input.Group>
+      </Form.Item>
+
+      <Form.Item
+        name="description"
+        label="步骤描述"
+        rules={[{ required: true, message: '请输入步骤描述' }]}
+      >
+        <TextArea rows={4} />
+      </Form.Item>
+
+      <Form.Item
+        label="步骤名称"
+        name="title"
+        rules={[{ required: true, message: '请输入步骤名称' }]}
+      >
+        <Input placeholder="默认为任务点描述" />
       </Form.Item>
     </Form>
   );
