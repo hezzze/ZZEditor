@@ -1,3 +1,5 @@
+import { createPopper, VirtualElement } from '@popperjs/core';
+
 import type { Mission, Quest, Task } from '../../common/QuestModel';
 import constants from './constants';
 
@@ -13,6 +15,67 @@ const questTime = (quest: Quest) => {
   return quest.children.reduce((acc, m) => {
     return acc + missionTime(m);
   }, 0);
+};
+
+// popper.js stuff
+
+const setupPopover = (el: Element, tooltip: HTMLElement, title: string) => {
+  const popperInstance = createPopper(el, tooltip, {
+    placement: 'top',
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 8],
+        },
+      },
+    ],
+  });
+
+  function show() {
+    // Make the tooltip visible
+    tooltip.setAttribute('data-show', '');
+
+    const titleEl = tooltip?.querySelector('.tooltip-title');
+    titleEl!.textContent = title;
+
+    // Enable the event listeners
+    popperInstance.setOptions((options) => ({
+      ...options,
+      modifiers: [
+        ...options.modifiers,
+        { name: 'eventListeners', enabled: true },
+      ],
+    }));
+
+    // Update its position
+    popperInstance.update();
+  }
+
+  function hide() {
+    // Hide the tooltip
+    tooltip.removeAttribute('data-show');
+
+    // Disable the event listeners
+    popperInstance.setOptions((options) => ({
+      ...options,
+      modifiers: [
+        ...options.modifiers,
+        { name: 'eventListeners', enabled: false },
+      ],
+    }));
+  }
+
+  const showEvents = ['mouseenter', 'focus'];
+  const hideEvents = ['mouseleave', 'blur'];
+
+  showEvents.forEach((event) => {
+    el.addEventListener(event, show);
+  });
+
+  hideEvents.forEach((event) => {
+    el.addEventListener(event, hide);
+  });
 };
 
 export default {
@@ -43,4 +106,5 @@ export default {
   },
   missionTime,
   questTime,
+  setupPopover,
 };

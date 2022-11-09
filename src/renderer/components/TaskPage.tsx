@@ -19,7 +19,6 @@ import actionTypes from '../shared/actionTypes';
 import ItemPage from '../shared/ItemPage';
 import MainContext from '../store/MainContext';
 import TaskForm from './forms/TaskForm';
-import pointsWithId from 'renderer/shared/poi';
 
 const { Title } = Typography;
 
