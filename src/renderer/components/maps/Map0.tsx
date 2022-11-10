@@ -538,258 +538,300 @@ const SvgComponent = (props) => (
           transform="translate(213.67 428.71) scale(.78)"
           xlinkHref="data:image/png;base64,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"
         />
-        <polygon
-          className="cls-2"
-          points="334.27 362.68 348.27 362.68 348.27 376.66 341.27 379.77 334.27 376.66 334.27 362.68 334.27 362.68 334.27 362.68"
-        />
-        <text className="cls-1" transform="translate(335.95 372.05)">
-          <tspan className="cls-4" x={0} y={0}>
-            3
-          </tspan>
-          <tspan x={4.67} y={0}>
-            4
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="366.17 379.77 380.17 379.77 380.17 393.75 373.17 397.64 366.17 393.75 366.17 379.77 366.17 379.77 366.17 379.77"
-        />
-        <text className="cls-1" transform="translate(368.22 389.5)">
-          <tspan className="cls-4" x={0} y={0}>
-            3
-          </tspan>
-          <tspan x={4.67} y={0}>
-            5
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="348.27 395.31 362.28 395.31 362.28 409.29 355.27 412.4 348.27 409.29 348.27 395.31 348.27 395.31 348.27 395.31"
-        />
-        <text className="cls-1" transform="translate(349.83 404.69)">
-          <tspan className="cls-4" x={0} y={0}>
-            3
-          </tspan>
-          <tspan x={4.67} y={0}>
-            6
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="395.73 424.05 409.74 424.05 409.74 438.04 402.74 441.14 395.73 438.04 395.73 424.05 395.73 424.05 395.73 424.05"
-        />
-        <text className="cls-1" transform="translate(397.42 433.46)">
-          <tspan className="cls-4" x={0} y={0}>
-            3
-          </tspan>
-          <tspan x={4.67} y={0}>
-            7
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="416.74 418.61 429.97 418.61 429.97 432.6 423.74 436.48 416.74 432.6 416.74 418.61 416.74 418.61 416.74 418.61"
-        />
-        <text className="cls-1" transform="translate(418.17 428.33)">
-          <tspan className="cls-4" x={0} y={0}>
-            4
-          </tspan>
-          <tspan x={4.67} y={0}>
-            1
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="357.61 441.14 371.61 441.14 371.61 455.13 364.61 459.01 357.61 455.13 357.61 441.14 357.61 441.14 357.61 441.14"
-        />
-        <text className="cls-1" transform="translate(359.67 450.9)">
-          <tspan className="cls-4" x={0} y={0}>
-            3
-          </tspan>
-          <tspan x={4.67} y={0}>
-            8
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="394.18 455.91 408.18 455.91 408.18 469.89 401.18 473.77 394.18 469.89 394.18 455.91 394.18 455.91 394.18 455.91"
-        />
-        <text className="cls-1" transform="translate(395.89 465.83)">
-          <tspan className="cls-4" x={0} y={0}>
-            3
-          </tspan>
-          <tspan x={4.67} y={0}>
-            9
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="348.27 417.84 362.28 417.84 362.28 431.82 355.27 435.71 348.27 431.82 348.27 417.84 348.27 417.84 348.27 417.84"
-        />
-        <text className="cls-1" transform="translate(349.83 427.52)">
-          <tspan className="cls-4" x={0} y={0}>
-            4
-          </tspan>
-          <tspan x={4.67} y={0}>
-            0
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="254.13 484.65 267.35 484.65 267.35 498.64 260.35 502.52 254.13 498.64 254.13 484.65 254.13 484.65 254.13 484.65"
-        />
-        <text className="cls-1" transform="translate(255.52 494.43)">
-          <tspan className="cls-5" x={0} y={0}>
-            4
-          </tspan>
-          <tspan x={4.67} y={0}>
-            3
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="387.95 494.75 401.96 494.75 401.96 508.74 394.95 512.62 387.95 508.74 387.95 494.75 387.95 494.75 387.95 494.75"
-        />
-        <text className="cls-1" transform="translate(389.49 504.72)">
-          <tspan className="cls-4" x={0} y={0}>
-            4
-          </tspan>
-          <tspan x={4.67} y={0}>
-            4
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="276.69 459.79 290.7 459.79 290.7 473.77 283.69 476.88 276.69 473.77 276.69 459.79 276.69 459.79 276.69 459.79"
-        />
-        <text className="cls-1" transform="translate(278.52 469.22)">
-          <tspan className="cls-5" x={0} y={0}>
-            4
-          </tspan>
-          <tspan x={4.67} y={0}>
-            2
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="216.78 553.02 230.01 553.02 230.01 567 223.78 570.11 216.78 567 216.78 553.02 216.78 553.02 216.78 553.02"
-        />
-        <text className="cls-1" transform="translate(218.22 562.38)">
-          <tspan className="cls-5" x={0} y={0}>
-            4
-          </tspan>
-          <tspan x={4.67} y={0}>
-            7
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="174.77 538.26 187.99 538.26 187.99 552.24 180.99 555.35 174.77 552.24 174.77 538.26 174.77 538.26 174.77 538.26"
-        />
-        <text className="cls-1" transform="translate(176.16 547.6)">
-          <tspan className="cls-5" x={0} y={0}>
-            4
-          </tspan>
-          <tspan x={4.67} y={0}>
-            8
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="173.21 504.85 187.21 504.85 187.21 518.84 180.21 522.72 173.21 518.84 173.21 504.85 173.21 504.85 173.21 504.85"
-        />
-        <text className="cls-1" transform="translate(174.72 514.55)">
-          <tspan className="cls-5" x={0} y={0}>
-            5
-          </tspan>
-          <tspan x={4.67} y={0}>
-            1
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="195 522.72 209 522.72 209 535.93 202 539.81 195 535.93 195 522.72 195 522.72 195 522.72"
-        />
-        <text className="cls-1" transform="translate(196.6 531.99)">
-          <tspan className="cls-5" x={0} y={0}>
-            5
-          </tspan>
-          <tspan x={4.67} y={0}>
-            0
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="202.78 494.75 216.78 494.75 216.78 508.74 209.78 512.62 202.78 508.74 202.78 494.75 202.78 494.75 202.78 494.75"
-        />
-        <text className="cls-1" transform="translate(204.34 504.72)">
-          <tspan className="cls-5" x={0} y={0}>
-            5
-          </tspan>
-          <tspan x={4.67} y={0}>
-            3
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="159.21 484.65 173.21 484.65 173.21 498.64 166.21 502.52 159.21 498.64 159.21 484.65 159.21 484.65 159.21 484.65"
-        />
-        <text className="cls-1" transform="translate(160.84 494.43)">
-          <tspan className="cls-5" x={0} y={0}>
-            5
-          </tspan>
-          <tspan x={4.67} y={0}>
-            2
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="130.42 538.26 144.42 538.26 144.42 552.24 137.42 555.35 130.42 552.24 130.42 538.26 130.42 538.26 130.42 538.26"
-        />
-        <text className="cls-1" transform="translate(132.31 547.6)">
-          <tspan className="cls-5" x={0} y={0}>
-            4
-          </tspan>
-          <tspan x={4.67} y={0}>
-            9
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="317.15 555.35 331.15 555.35 331.15 569.33 324.15 573.22 317.15 569.33 317.15 555.35 317.15 555.35 317.15 555.35"
-        />
-        <text className="cls-1" transform="translate(319.2 565.04)">
-          <tspan className="cls-4" x={0} y={0}>
-            4
-          </tspan>
-          <tspan x={4.67} y={0}>
-            5
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="135.09 507.96 149.09 507.96 149.09 521.94 142.09 525.05 135.09 521.94 135.09 507.96 135.09 507.96 135.09 507.96"
-        />
-        <text className="cls-1" transform="translate(136.86 517.61)">
-          <tspan className="cls-5" x={0} y={0}>
-            5
-          </tspan>
-          <tspan x={4.67} y={0}>
-            4
-          </tspan>
-        </text>
-        <polygon
-          className="cls-2"
-          points="380.17 437.26 394.18 437.26 394.18 451.24 387.17 455.13 380.17 451.24 380.17 437.26 380.17 437.26 380.17 437.26"
-        />
-        <text className="cls-1" transform="translate(382.1 446.98)">
-          <tspan className="cls-4" x={0} y={0}>
-            4
-          </tspan>
-          <tspan x={4.67} y={0}>
-            6
-          </tspan>
-        </text>
+        <g>
+          <polygon
+            className="cls-2"
+            points="334.27 362.68 348.27 362.68 348.27 376.66 341.27 379.77 334.27 376.66 334.27 362.68 334.27 362.68 334.27 362.68"
+          />
+          <text className="cls-1" transform="translate(335.95 372.05)">
+            <tspan className="cls-4" x={0} y={0}>
+              3
+            </tspan>
+            <tspan x={4.67} y={0}>
+              4
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="366.17 379.77 380.17 379.77 380.17 393.75 373.17 397.64 366.17 393.75 366.17 379.77 366.17 379.77 366.17 379.77"
+          />
+          <text className="cls-1" transform="translate(368.22 389.5)">
+            <tspan className="cls-4" x={0} y={0}>
+              3
+            </tspan>
+            <tspan x={4.67} y={0}>
+              5
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="348.27 395.31 362.28 395.31 362.28 409.29 355.27 412.4 348.27 409.29 348.27 395.31 348.27 395.31 348.27 395.31"
+          />
+          <text className="cls-1" transform="translate(349.83 404.69)">
+            <tspan className="cls-4" x={0} y={0}>
+              3
+            </tspan>
+            <tspan x={4.67} y={0}>
+              6
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="395.73 424.05 409.74 424.05 409.74 438.04 402.74 441.14 395.73 438.04 395.73 424.05 395.73 424.05 395.73 424.05"
+          />
+          <text className="cls-1" transform="translate(397.42 433.46)">
+            <tspan className="cls-4" x={0} y={0}>
+              3
+            </tspan>
+            <tspan x={4.67} y={0}>
+              7
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="416.74 418.61 429.97 418.61 429.97 432.6 423.74 436.48 416.74 432.6 416.74 418.61 416.74 418.61 416.74 418.61"
+          />
+          <text className="cls-1" transform="translate(418.17 428.33)">
+            <tspan className="cls-4" x={0} y={0}>
+              4
+            </tspan>
+            <tspan x={4.67} y={0}>
+              1
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="357.61 441.14 371.61 441.14 371.61 455.13 364.61 459.01 357.61 455.13 357.61 441.14 357.61 441.14 357.61 441.14"
+          />
+          <text className="cls-1" transform="translate(359.67 450.9)">
+            <tspan className="cls-4" x={0} y={0}>
+              3
+            </tspan>
+            <tspan x={4.67} y={0}>
+              8
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="394.18 455.91 408.18 455.91 408.18 469.89 401.18 473.77 394.18 469.89 394.18 455.91 394.18 455.91 394.18 455.91"
+          />
+          <text className="cls-1" transform="translate(395.89 465.83)">
+            <tspan className="cls-4" x={0} y={0}>
+              3
+            </tspan>
+            <tspan x={4.67} y={0}>
+              9
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="348.27 417.84 362.28 417.84 362.28 431.82 355.27 435.71 348.27 431.82 348.27 417.84 348.27 417.84 348.27 417.84"
+          />
+          <text className="cls-1" transform="translate(349.83 427.52)">
+            <tspan className="cls-4" x={0} y={0}>
+              4
+            </tspan>
+            <tspan x={4.67} y={0}>
+              0
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="254.13 484.65 267.35 484.65 267.35 498.64 260.35 502.52 254.13 498.64 254.13 484.65 254.13 484.65 254.13 484.65"
+          />
+          <text className="cls-1" transform="translate(255.52 494.43)">
+            <tspan className="cls-5" x={0} y={0}>
+              4
+            </tspan>
+            <tspan x={4.67} y={0}>
+              3
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="387.95 494.75 401.96 494.75 401.96 508.74 394.95 512.62 387.95 508.74 387.95 494.75 387.95 494.75 387.95 494.75"
+          />
+          <text className="cls-1" transform="translate(389.49 504.72)">
+            <tspan className="cls-4" x={0} y={0}>
+              4
+            </tspan>
+            <tspan x={4.67} y={0}>
+              4
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="276.69 459.79 290.7 459.79 290.7 473.77 283.69 476.88 276.69 473.77 276.69 459.79 276.69 459.79 276.69 459.79"
+          />
+          <text className="cls-1" transform="translate(278.52 469.22)">
+            <tspan className="cls-5" x={0} y={0}>
+              4
+            </tspan>
+            <tspan x={4.67} y={0}>
+              2
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="216.78 553.02 230.01 553.02 230.01 567 223.78 570.11 216.78 567 216.78 553.02 216.78 553.02 216.78 553.02"
+          />
+          <text className="cls-1" transform="translate(218.22 562.38)">
+            <tspan className="cls-5" x={0} y={0}>
+              4
+            </tspan>
+            <tspan x={4.67} y={0}>
+              7
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="174.77 538.26 187.99 538.26 187.99 552.24 180.99 555.35 174.77 552.24 174.77 538.26 174.77 538.26 174.77 538.26"
+          />
+          <text className="cls-1" transform="translate(176.16 547.6)">
+            <tspan className="cls-5" x={0} y={0}>
+              4
+            </tspan>
+            <tspan x={4.67} y={0}>
+              8
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="173.21 504.85 187.21 504.85 187.21 518.84 180.21 522.72 173.21 518.84 173.21 504.85 173.21 504.85 173.21 504.85"
+          />
+          <text className="cls-1" transform="translate(174.72 514.55)">
+            <tspan className="cls-5" x={0} y={0}>
+              5
+            </tspan>
+            <tspan x={4.67} y={0}>
+              1
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="195 522.72 209 522.72 209 535.93 202 539.81 195 535.93 195 522.72 195 522.72 195 522.72"
+          />
+          <text className="cls-1" transform="translate(196.6 531.99)">
+            <tspan className="cls-5" x={0} y={0}>
+              5
+            </tspan>
+            <tspan x={4.67} y={0}>
+              0
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="202.78 494.75 216.78 494.75 216.78 508.74 209.78 512.62 202.78 508.74 202.78 494.75 202.78 494.75 202.78 494.75"
+          />
+          <text className="cls-1" transform="translate(204.34 504.72)">
+            <tspan className="cls-5" x={0} y={0}>
+              5
+            </tspan>
+            <tspan x={4.67} y={0}>
+              3
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="159.21 484.65 173.21 484.65 173.21 498.64 166.21 502.52 159.21 498.64 159.21 484.65 159.21 484.65 159.21 484.65"
+          />
+          <text className="cls-1" transform="translate(160.84 494.43)">
+            <tspan className="cls-5" x={0} y={0}>
+              5
+            </tspan>
+            <tspan x={4.67} y={0}>
+              2
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="130.42 538.26 144.42 538.26 144.42 552.24 137.42 555.35 130.42 552.24 130.42 538.26 130.42 538.26 130.42 538.26"
+          />
+          <text className="cls-1" transform="translate(132.31 547.6)">
+            <tspan className="cls-5" x={0} y={0}>
+              4
+            </tspan>
+            <tspan x={4.67} y={0}>
+              9
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="317.15 555.35 331.15 555.35 331.15 569.33 324.15 573.22 317.15 569.33 317.15 555.35 317.15 555.35 317.15 555.35"
+          />
+          <text className="cls-1" transform="translate(319.2 565.04)">
+            <tspan className="cls-4" x={0} y={0}>
+              4
+            </tspan>
+            <tspan x={4.67} y={0}>
+              5
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="135.09 507.96 149.09 507.96 149.09 521.94 142.09 525.05 135.09 521.94 135.09 507.96 135.09 507.96 135.09 507.96"
+          />
+          <text className="cls-1" transform="translate(136.86 517.61)">
+            <tspan className="cls-5" x={0} y={0}>
+              5
+            </tspan>
+            <tspan x={4.67} y={0}>
+              4
+            </tspan>
+          </text>
+        </g>
+        <g>
+          <polygon
+            className="cls-2"
+            points="380.17 437.26 394.18 437.26 394.18 451.24 387.17 455.13 380.17 451.24 380.17 437.26 380.17 437.26 380.17 437.26"
+          />
+          <text className="cls-1" transform="translate(382.1 446.98)">
+            <tspan className="cls-4" x={0} y={0}>
+              4
+            </tspan>
+            <tspan x={4.67} y={0}>
+              6
+            </tspan>
+          </text>
+        </g>
       </g>
       <g>
         <image

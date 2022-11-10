@@ -1,5 +1,4 @@
 import {
-  Card,
   Col,
   Descriptions,
   Divider,
@@ -9,65 +8,27 @@ import {
   Statistic,
   Typography,
 } from 'antd';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext } from 'react';
 import { Mission } from 'common/QuestModel';
 import { useNavigate, useParams } from 'react-router-dom';
 import ItemPage from 'renderer/shared/ItemPage';
 import util from 'renderer/shared/util';
-import constants from 'renderer/shared/constants';
 
 import actionTypes from '../shared/actionTypes';
 
 import MainContext from '../store/MainContext';
 import MissionForm from './forms/MissionForm';
-
-import Map0 from './maps/Map0';
-
-import './MissionPage.scss';
-
-import mapPng from '../../../assets/floor.png';
+import TaskMap from './TaskMap';
 
 const { Title } = Typography;
 
 // reference: https://ant.design/components/page-header-cn/
 
 const MissionPage = () => {
-  const params = useParams();
-  const { state, dispatch } = useContext(MainContext);
+  const { dispatch } = useContext(MainContext);
   const navigate = useNavigate();
 
   const [form] = Form.useForm();
-  const mapEl = useRef(null);
-
-  useEffect(() => {
-    console.log(mapEl.current);
-    const mission: Mission = util.findNode(state.questData, params.id!)!;
-
-    const pointKeys = mission.children.map((m) => m.pointKey);
-
-    mapEl.current.querySelectorAll('svg g').forEach((node) => {
-      const textEl = node.querySelector(':scope>text');
-      if (!textEl) return;
-
-      const key =
-        parseInt(textEl.textContent, 10) -
-        1; /*  point number starting from 1 */
-
-      const index = pointKeys.indexOf(key);
-      if (index >= 0) {
-        node.classList.add('active');
-
-        const tooltip = document.querySelector('#tooltip');
-        util.setupPopover(
-          node,
-          tooltip as HTMLElement,
-          `步骤(${index + 1}) ${constants.POINTS[key].short_desc}`
-        );
-      } else {
-        node.classList.remove('active');
-      }
-    });
-  });
 
   const onSave = (mission: Mission) => {
     dispatch({
@@ -116,16 +77,7 @@ const MissionPage = () => {
           </Row>
         </Col>
         <Col span={16}>
-          <Row justify="center" ref={mapEl}>
-            <div className="map-box">
-              <img src={mapPng} className="map-image" />
-              <Map0 className="map-svg" />
-            </div>
-          </Row>
-          <div id="tooltip" role="tooltip">
-            <div className="tooltip-title" />
-            <div id="arrow" data-popper-arrow />
-          </div>
+          <TaskMap mission={mission} />
         </Col>
       </Row>
     </>
